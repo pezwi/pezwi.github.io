@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Template Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function generateEmail() {
+            var userName = document.getElementById('userName').value;
+            var appName = document.getElementById('appName').value;
+            var ticketNumber = document.getElementById('ticketNumber').value;
+            var shareLocation = `\\\\co-emea-sccm002\\AppInstallers\\${ticketNumber}\\`;
+            var emailTemplate = `
+Hi ${userName},
+
+
+Thank you for requesting ${appName} to be packaged and deployed through Company Portal. To proceed with the packaging, we need access to the application installer.
+
+Could you please download and move the installer for ${appName} to the following path? ${shareLocation}
+
+Once the installer has been moved, please confirm the transfer by responding to this email.
+
+If you have any questions or require further assistance, please do not hesitate to reach out.
+
+
+            `;
+            document.getElementById('emailOutput').value = emailTemplate;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Email Template Generator</h2>
+        <form onsubmit="generateEmail(); return false;">
+            <label for="userName">User's Name:</label>
+            <input type="text" id="userName" name="userName" required>
+            
+            <label for="appName">Application Name:</label>
+            <input type="text" id="appName" name="appName" required>
+
+            <label for="ticketNumber">Ticket Number:</label>
+            <input type="text" id="ticketNumber" name="ticketNumber" required>
+            
+            <input type="submit" value="Generate Email">
+        </form>
+        <h3>Generated Email:</h3>
+        <textarea id="emailOutput" rows="20" readonly></textarea>
+    </div>
+</body>
+</html>
